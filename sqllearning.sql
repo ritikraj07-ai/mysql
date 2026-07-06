@@ -346,3 +346,95 @@ delete from student
 where marks <80;
 alter table student
 drop grade;
+use collage;
+drop table student;
+CREATE TABLE student(
+    id INT PRIMARY KEY,
+    name VARCHAR(50)
+);
+
+INSERT INTO student (id, name)
+VALUES
+(101, "adam"),
+(102, "bob"),
+(103, "casey");
+
+CREATE TABLE course(
+    id INT PRIMARY KEY,
+    course VARCHAR(50)
+);
+
+INSERT INTO course (id, course)
+VALUES
+(102, "english"),
+(105, "math"),
+(103, "science"),
+(107, "computer science");
+select * from student;
+select * from course;
+select * 
+from student
+inner join course
+on student.id = course.id;
+select * 
+from student as s
+left join course as c
+on s.id = c.id;
+
+select *
+from student as s
+right join course as c
+on s.id = c.id;
+select * 
+from student
+left join course
+on student.id = course.id
+where course is null;
+drop table student;
+CREATE TABLE student (
+    rollno INT PRIMARY KEY,
+    name VARCHAR(50),
+    marks INT,
+    grade CHAR(1),
+    city VARCHAR(50)
+);
+INSERT INTO student
+(rollno, name, marks, grade, city)
+VALUES
+(101, "anil", 78, "C", "Pune"),
+(102, "bhumika", 93, "A", "Mumbai"),
+(103, "chetan", 85, "B", "Mumbai"),
+(104, "dhruv", 96, "A", "Delhi"),
+(105, "emanuel", 12, "F", "Delhi"),
+(106, "farah", 82, "B", "Delhi");
+
+select name,marks
+from student
+where marks > (select avg(marks) from student);
+
+select  rollno
+from student
+where rollno in (
+	select rollno
+    from student
+    where rollno%2 = 0
+);
+select *
+from student
+where city = "delhi";
+
+select max(marks)
+from (
+select *
+from student
+where city = "delhi") as temp;
+
+select max(marks)
+from (select * from student 
+where city = "delhi"
+) as temp;
+
+create view view1 as 
+select rollno , name , marks , grade
+from student;
+ 
